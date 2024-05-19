@@ -1,0 +1,243 @@
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+.flex-row > div {
+    margin: auto 0;
+}
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+.flex-column > div {
+    margin: 0 auto;
+}
+.flex-wrap {
+    flex-wrap: wrap;
+}
+.item-center{
+    display: flex;
+    justify-content: center;
+
+}
+.box-icon {
+    width: 25px;
+}
+.box-icon i {
+    display: block;
+}
+.button-hover {
+    transition: color 0.1s;
+    cursor: pointer;
+}
+.button-hover:hover {
+    color: var(--grey-color-dark)
+}
+.button-hover-inverse {
+    transition: color 0.1s;
+    cursor: pointer;
+}
+.button-hover-inverse:hover {
+    color: var(--grey-color)
+}
+.full {
+    width: 100%;
+    height: 100%;
+}
+.padding-surround {
+    padding: 10px;
+    box-sizing: border-box;
+}
+.border-radius-regular {
+    border-radius: 10px;
+}
+.border-radius-thin {
+    border-radius: 5px;
+}
+.image-cover1 {
+    --r: 45deg;
+    --d: 5%;
+    -webkit-mask:
+            linear-gradient(var(--r), transparent var(--d),red 0 calc(100% - var(--d)), transparent 0);
+}
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.title {
+    font-size: 30px;
+    color: var(--black-color);
+    font-weight: 600;
+}
+.title-inverse {
+    font-size: 30px;
+    color: var(--font-inverse-color);
+    font-weight: 600;
+}
+.subtitle{
+    font-size: 18px;
+    color: var(--black-color);
+    font-weight: 600;
+}
+.subtitle-inverse {
+    font-size: 18px;
+    color: var(--font-inverse-color);
+    font-weight: 600;
+}
+.hint {
+    font-size: 12px;
+    color: var(--font-subject-color);
+    font-weight: 300;
+
+}
+.hint-inverse {
+    font-size: 12px;
+    color: var(--white-color);
+    font-weight: 300;
+}
+.text {
+    font-size: 14px;
+    color: var(--black-color);
+}
+.text-inverse {
+    font-size: 14px;
+    color: var(--white-color);
+}
+.text-tight {
+    font-size: 12px;
+    color: var(--black-color);
+}
+.text-tight-inverse {
+    font-size: 12px;
+    color: var(--white-color);
+}
+.text-bold {
+    font-size: 14px;
+    color: var(--black-color);
+    font-weight: 600;
+}
+.text-bold-inverse {
+    font-size: 14px;
+    color: var(--white-color);
+    font-weight: 600;
+}
+input {
+    border: none;
+    font-family: "Readex Pro";
+    color: var(--black-color);
+    width: 100%;
+}
+input:focus-visible {
+    outline: none;
+}
+textarea {
+    background-color: transparent;
+    resize: none;
+    border: none;
+    width: 100%;
+    height: 100%;
+    font-family: "Readex Pro";
+    color: var(--black-color);
+}
+textarea::-webkit-scrollbar {
+    display: none;
+}
+textarea:focus-visible {
+    outline: none;
+}
+.clickable-text{
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--theme-color);
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+}
+.clickable-text:hover {
+    color: var(--theme-color-dark);
+}
+.clickable-text:after{
+    content:'';
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    border-bottom: 1px solid var(--theme-color);
+}
+.pattern1 {
+    --r : 40px;
+    position: absolute;
+    width: var(--r);
+    height: var(--r);
+    clip: rect(calc(var(--r)/2), var(--r), var(--r), calc(var(--r)/2));
+    -webkit-mask: radial-gradient(circle, transparent calc(var(--r)/2), #000 calc(var(--r)/2 + 1px));
+    overflow: hidden;
+}
+.spinner1 {
+    width: 50px;
+    --b: 8px; /* the border thickness */
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--background-color);
+    -webkit-mask:
+            repeating-conic-gradient(#0000 0deg,#000 1deg 70deg,#0000 71deg 90deg),
+            radial-gradient(farthest-side,#0000 calc(100% - var(--b) - 1px),#000 calc(100% - var(--b)));
+    -webkit-mask-composite: destination-in;
+    mask-composite: intersect;
+    animation: s5 1s infinite;
+}
+.tool-bar{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+
+@keyframes s5 {to{transform: rotate(.5turn)}}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes shrink {
+    from {
+        transform: scale(1.2);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes rotate90 {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(.25turn);
+    }
+}
+
+@keyframes rotate180 {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(.5turn);
+    }
+}
+
+@keyframes rotate360 {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+}
