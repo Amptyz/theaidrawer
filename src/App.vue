@@ -54,11 +54,12 @@ body
   height 100%
   overflow hidden
   margin 0 5px
-  background-color var(--background-color)
+  //background-color var(--black-background)
 
 .main-view
   height 100%
   width 100%
+  //background-color var(--black-background)
   overflow hidden
 </style>
 

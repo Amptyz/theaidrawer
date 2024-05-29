@@ -1,30 +1,30 @@
 <template>
 
     <div class="login-panel">
-    <div class="title" >登录</div>
-    <div class="hint">登录账号以开启你的ai绘画之旅</div>
-    <HInput
-        name="邮箱"
-        v-model="data.account"
-        :state="correct.account? 'default' : 'error'"
-        :information="information.account"
-        @blur="onBlurEmail"
-        style="margin: 16px 0"
-    ></HInput>
-    <HInput
-        :password="true"
-        name="密码"
-        v-model="data.password"
-        :state="correct.password? 'default' : 'error'"
-        :information="information.password"
-        style="margin: 16px 0"
-    ></HInput>
-    <HButton @click="onSignIn" style="margin: 26px 0">登录</HButton>
-    <HDivider>Or</HDivider>
-    <div style="text-align: center">
-      <span class="hint">还没有账号? </span>
-      <span class="clickable-text" @click="goRegistry">注册</span>
-    </div>
+      <div class="title" >登录</div>
+      <div class="hint">登录账号以开启你的ai绘画之旅</div>
+      <HInput
+          name="邮箱"
+          v-model="data.email"
+          :state="correct.email? 'default' : 'error'"
+          :information="information.email"
+          @blur="onBlurEmail"
+          style="margin: 16px 0"
+      ></HInput>
+      <HInput
+          :password="true"
+          name="密码"
+          v-model="data.password"
+          :state="correct.password? 'default' : 'error'"
+          :information="information.password"
+          style="margin: 16px 0"
+      ></HInput>
+      <HButton @click="onSignIn" style="margin: 26px 0">登录</HButton>
+      <HDivider>Or</HDivider>
+      <div style="text-align: center">
+        <span class="hint">还没有账号? </span>
+        <span class="clickable-text" @click="goRegistry">注册</span>
+      </div>
     </div>
 
 </template>
@@ -36,26 +36,26 @@ import {reactive} from "vue";
 import HDivider from "@/components/HDivider.vue";
 import {goto, signIn} from "@/assets/api";
 const data = reactive<{
-  account : string
+  email : string
   password : string
 }>({
-  account : '',
+  email : '',
   password : ''
 })
 
 const correct = reactive<{
-  account : boolean
+  email : boolean
   password : boolean
 }>({
-  account : true,
+  email : true,
   password : true
 })
 
 const information = reactive<{
-  account : string
+  email : string
   password : string
 }>({
-  account : '',
+  email : '',
   password : ''
 })
 
@@ -68,12 +68,12 @@ function onSignIn(){
 
 const onBlurEmail = () => {
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-  if(emailRegex.test(data.account)) {
-    correct.account = true
-    information.account = ''
+  if(emailRegex.test(data.email)) {
+    correct.email = true
+    information.email = ''
   } else {
-    correct.account = false
-    information.account = '非法的邮件格式'
+    correct.email = false
+    information.email = '非法的邮件格式'
   }
 }
 </script>
@@ -85,5 +85,6 @@ const onBlurEmail = () => {
   top 15%
   width 70%
   max-width 330px
+  background-color (--black-background)
 
 </style>

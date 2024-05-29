@@ -11,7 +11,7 @@
       mode="out-in"
     >
       <div v-if="!store.state.online" class="locked-sidebar ">
-        <div class="locked-sidebar-background full left-content-panel">
+        <div class="locked-sidebar-background full ">
           <div class="video-cover">
             <video loop autoplay muted playsinline style="width: 100%;height: 100%;object-fit: cover">
               <source src="@/assets/videos/welcomeVideo.webm">
@@ -36,7 +36,7 @@
             <div class="title-inverse foldable" style="flex-grow: 0; text-align: center">AiDraw</div>
           </div>
           <side-bar-item-group v-if="!store.state.isAdmin">
-            <side-bar-item name="study" @click="goto('/learn')">
+            <side-bar-item name="study" @click="goto('/home')">
               <div class="flex-row" style="justify-content: center; transition: gap 0.5s" :style="{gap: store.state.sidebar_fold?'0':'20px'}">
                 <div class="box-icon">
                   <i class='bx bx-book'></i>
@@ -44,7 +44,7 @@
                 <div class="foldable">Home</div>
               </div>
             </side-bar-item>
-            <side-bar-item name="archive" @click="goto('/archive')">
+            <side-bar-item name="archive" @click="goto('/draw')">
               <div class="flex-row" style="justify-content: center; transition: gap 0.5s" :style="{gap: store.state.sidebar_fold?'0':'20px'}">
                 <div class="box-icon">
                   <i class='bx bx-archive'></i>
@@ -195,7 +195,7 @@ const onSignOut = () => {
 
 .unlocked-sidebar
   height 100%
-  background-color var(--theme-color-dark)
+  background-color var(--grey-color-dark)
   color var(--font-inverse-color)
   justify-content space-between
   padding-top 10px
@@ -210,7 +210,7 @@ const onSignOut = () => {
   height 100px
 
   //background-color rgba(0, 0, 0, 0.2)
-  background-color var(--theme-color)
+  background-color var(--grey-color-dark)
   transition all 0.5s, height 1s
 
 .icon-app-name-flex

@@ -8,7 +8,8 @@ export default createStore({
         nick_name: "NickName",
         email: "3336970253@qq.com",
         isAdmin:false,
-        avatar_url:new URL("./assets/avatar.jpg",import.meta.url)
+        avatar_url:new URL("./assets/avatar.jpg",import.meta.url),
+        session: ''
     },
     getters:{
 

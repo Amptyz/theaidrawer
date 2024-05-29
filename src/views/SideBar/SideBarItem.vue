@@ -82,10 +82,10 @@ onMounted(() => {
 .select
   color var(--accent-color)
   .sidebar-background
-    background-color var(--background-color)
+    background-color var(--black-background)
     left 15px
   .border
-    background-color var(--background-color)
+    background-color var(--black-background)
     --r 40px
 
 </style>

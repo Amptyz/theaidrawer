@@ -70,7 +70,7 @@ const showText = computed(() => {
     width: 50%;
     border-top-width: var(--border-width);
     border-top-style: solid;
-    border-top-color  var(--grey-color-bright);
+    border-top-color  var(--grey-color);
     transform: translateY(50%);
     content: '';
   }
@@ -88,11 +88,13 @@ const showText = computed(() => {
 }
 .m-divider-vertical {
   position: relative;
-  top: -.06em;
+
   display: inline-block;
-  height: .9em;
+  height 100%
+  min-height 100%
   margin: 0 8px;
   vertical-align: middle;
+  border-top-color  var(--grey-color);
   border-top: 0;
   border-inline-start: 1px solid rgba(5, 5, 5, .06);
 }

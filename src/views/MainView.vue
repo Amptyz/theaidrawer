@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="full">
+  <div class="full" style="background-color: var(--black-background)">
     <router-view>
 
     </router-view>
