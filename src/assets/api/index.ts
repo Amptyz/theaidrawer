@@ -64,3 +64,9 @@ export const checkGeneration = async (taskId:string):Promise<Object>=>{
     //console.log('检查任务生成的res',res)
     return res.data.data
 }
+export const uploadImage = async (data:FormData)=>{
+    const res = await axios.post('/image/upload',data)
+    console.log('请求Img',res)
+
+    return res.data
+}

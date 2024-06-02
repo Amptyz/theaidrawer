@@ -1,7 +1,7 @@
 <template>
 
     <div class="login-panel">
-      <div class="title" >登录</div>
+      <div class="center-title-inverse" >登录</div>
       <div class="hint">登录账号以开启你的ai绘画之旅</div>
       <HInput
           name="邮箱"

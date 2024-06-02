@@ -21,7 +21,7 @@
     </transition>
 
     <div class="image-block">
-      <img @load="onLoad"  alt="" :src="props.image.src">
+      <img @load="onLoad" alt="" :src="props.image.src">
     </div>
   </div>
 
@@ -53,6 +53,7 @@ const emits = defineEmits(['load','error'])
 
 const onLoad = () => {
   data.loaded = true
+  emits('load')
 }
 
 onMounted(() => {
@@ -69,7 +70,6 @@ onMounted(() => {
 .image-block
   width 100%
   height 100%
-  cursor pointer
   transition all 0.3s ease
   img
     width 100%
@@ -87,9 +87,6 @@ onMounted(() => {
   width 100%
   height 100%
 
-.image-block:hover
-  transform scale(1.15)
-  transition all 0.3s ease
 .flex-container
   display flex
   flex-direction column

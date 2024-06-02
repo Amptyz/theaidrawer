@@ -6,6 +6,7 @@ import {draw} from "@/assets/api";
 import type {drawRequest, ImgOption} from "@/assets/api/type";
 import HLoading from "@/components/HLoading.vue";
 import ImageGeneration from "@/views/HomeView/components/ImageGeneration.vue";
+import HButton from "@/components/HButton.vue";
 const advancedOption = reactive<ImgOption>({
   removeBackground:null,
   redrawBackground:null,
@@ -16,10 +17,10 @@ const advancedOption = reactive<ImgOption>({
 })
 const paras = reactive<drawRequest>({
   prompt:'',
-  negativePrompt:null,
+  negativePrompt:'',
   modelStyleId:1,
-  width:null,
-  height:null,
+  width:960,
+  height:540,
   img:null,
   maskImg:null,
   maskBlur:null,
@@ -48,14 +49,48 @@ const drawImg = () =>{
 const onFinishDraw = () => {
   data.taskId = ''
 }
+const updateNegativePrompt = (val) =>{
+  paras.negativePrompt = val
+}
+const updateImg = (imgUrl:string)=>{
+  console.log('成功update了Img！！')
+  paras.img = imgUrl
+}
+const updateStyle = (styleCode:number)=>{
+  paras.modelStyleId = styleCode
+  console.log('成功update模型参数！！',paras.modelStyleId)
+}
+const updateSize = (x:number,y:number)=>{
+  paras.height = paras.width*y/x;
+  if(y===16){
+    paras.height = 960
+    paras.width = 720
+  }
+  console.log('成功update图片尺寸！！',paras.width,paras.height)
+}
 </script>
 
 <template>
   <div class="full flex-row" style="background-color: var(--black-background)">
 
     <div class="prompt-div">
-      <PrompPanel v-model="paras.prompt" :negative-prompt="paras.negativePrompt" @onDraw="drawImg">
+      <PrompPanel v-model="paras.prompt" :negative-prompt="paras.negativePrompt"
+                  @updateImg="updateImg"
+                  @updateStyle="updateStyle"
+                  @updateSize="updateSize"
+                  @updateNegativePrompt="updateNegativePrompt">
+        <div class="icon-generate">
+          <HButton  @click="drawImg">
+            <div class="flex-row full">
+              <i class='bx bxs-magic-wand' style="font-size: 30px"></i>
+              <div style="font-size: 18px;font-weight: 700;line-height: 30px">
+                Generate
+              </div>
+            </div>
+          </HButton>
+        </div>
       </PrompPanel>
+
     </div>
 
     <div class="pic-div">
@@ -69,17 +104,30 @@ const onFinishDraw = () => {
 <style scoped lang="stylus">
 
 .prompt-div
-
+  position relative
   box-sizing border-box
-  padding 20px
-  width 100%
+  margin 20px
+  width 35%
   height 100%
-  margin-top auto
-  margin-bottom 20px
+  padding-bottom 40px
 .pic-div
+  flex 3
   box-sizing border-box
   padding 20px
-  width 100%
+
   height 100%
   margin-bottom auto
+
+.icon-generate
+  width 150px
+  position: absolute
+  right 0
+  bottom 0
+  cursor pointer
+  font-size 30px
+  color var(--theme-color-bright)
+  margin-right 10px
+  margin-bottom 5px
+  &:hover
+    color var(--accent-color-dark)
 </style>

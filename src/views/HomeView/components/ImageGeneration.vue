@@ -23,6 +23,10 @@ const props=defineProps<{
 
 }>()
 const emits=defineEmits(['onFinishDraw'])
+const onLoaded = ()=>{
+  console.log('加载完成！')
+  data.loading = false;
+}
 watch(
     ()=>props.taskId,
     (val,preval)=>{
@@ -73,7 +77,7 @@ const isPicShow=computed(()=>{
 
           <div v-else-if="data.isDrawComplete&&!data.isDrawing" class="image-show">
 
-            <HImage :image=data.image size="300">
+            <HImage :image=data.image size="300" @load="onLoaded">
 
             </HImage>
           </div>
