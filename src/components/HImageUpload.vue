@@ -28,26 +28,26 @@ const fileInput = ref<HTMLInputElement>()
 const clickFileInput = () => {
   fileInput.value?.click()
 }
-const selectedFile = ref()
+// const selectedFile = ref()
 const handleImage = (event : any) =>{
   event.preventDefault()
   data.isDragOver=false
   const files = event.target.files || event.dataTransfer.files
   if(!files.length) return;
-  selectedFile.value = files[0]
+  //selectedFile.value = files[0]
 
-  handleImageStep2(selectedFile.value)
+  handleImageStep2(files[0])
 
   console.log('handleImage')
 }
 
-const picFile = ref()
-const getPicFile = ()=>{
-  return picFile.value
-}
-defineExpose({
-  getPicFile
-})
+// const picFile = ref()
+// const getPicFile = ()=>{
+//   return picFile.value
+// }
+// defineExpose({
+//   getPicFile
+// })
 const emits= defineEmits(['updateImg'])
 
 const handleImageStep2 = (image : File) =>{
@@ -58,16 +58,16 @@ const handleImageStep2 = (image : File) =>{
     data.image = new Img(imageFile.src, imageFile.width, imageFile.height)
   }
   // data.pic= image.path
-   picFile.value = image
-  data.pic= image.path
-  data.isHaveImage = true
-  // data.isHaveImage = true
+  //picFile.value = image
+  //data.pic= image.path
 
+  data.isHaveImage = true
   const formdata = new FormData()
-  formdata.append('file',picFile.value)
+  formdata.append('file',image)
   uploadImage(formdata).then(res=>{
     console.log('拿到的url',res)
     if(res.code==0){
+
       emits('updateImg',res.data)
 
     }
@@ -76,8 +76,10 @@ const handleImageStep2 = (image : File) =>{
 }
 const cancelImage = ()=>{
   data.isHaveImage = false
-  data.pic = ''
-  picFile.value = null
+  fileInput.value.value=''
+  //data.pic = ''
+  // picFile.value = null
+  // selectedFile.value = null
   emits('updateImg','')
 }
 const backgroundColor = computed(()=>{
@@ -101,7 +103,7 @@ const handleDragOver = () =>{
        @dragenter.prevent
       >
     <div class="center flex-column flex-center" v-if="data.isHaveImage" >
-      <HImage :image="data.image" :size="200" ></HImage>
+      <HImage :image="data.image" :size="100" ></HImage>
       <div class="text-accent" style="margin: 10px 10px">
         上传成功！将以此图片为模板进行绘制
       </div>
@@ -119,7 +121,7 @@ const handleDragOver = () =>{
     <div class="close-icon" style="color: #7C839C " v-if="data.isHaveImage" @click.stop="cancelImage">
       <i class='bx bx-x-circle'></i>
     </div>
-    <input type="file" accept="image/*" @change="handleImage" ref="fileInput" style="display: none"/>
+    <input type="file" accept="image/*" @input="handleImage" ref="fileInput" style="display: none"/>
     </div>
 
 </template>

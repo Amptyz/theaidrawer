@@ -70,12 +70,12 @@ onMounted(() => {
 .unselect
   color var(--white-color)
   .sidebar-background
-    background-color var(--theme-color-dark)
+    background-color var(--black-background)
   .border
-    background-color var(--theme-color)
+    background-color var(--black-background)
     --r 0
   &:hover
-    color var(--grey-color-bright)
+    color var(--theme-color)
     .sidebar-background
       left 15px
 

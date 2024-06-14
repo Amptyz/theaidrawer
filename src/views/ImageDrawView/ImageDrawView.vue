@@ -1,12 +1,10 @@
 <script setup lang="ts">
-
-import PrompPanel from "@/views/HomeView/components/PrompPanel.vue";
 import {reactive, ref} from "vue";
 import {draw} from "@/assets/api";
 import type {drawRequest, ImgOption} from "@/assets/api/type";
-import HLoading from "@/components/HLoading.vue";
 import ImageGeneration from "@/views/HomeView/components/ImageGeneration.vue";
 import HButton from "@/components/HButton.vue";
+import ImagePropmpPanel from "@/views/ImageDrawView/components/ImagePropmpPanel.vue";
 const advancedOption = reactive<ImgOption>({
   removeBackground:null,
   redrawBackground:null,
@@ -73,31 +71,27 @@ const updateSize = (x:number,y:number)=>{
 <template>
   <div class="full flex-row" style="background-color: var(--black-background)">
 
-<!--    <div class="prompt-div">-->
-<!--      <PrompPanel v-model="paras.prompt" :negative-prompt="paras.negativePrompt"-->
-<!--                  @updateImg="updateImg"-->
-<!--                  @updateStyle="updateStyle"-->
-<!--                  @updateSize="updateSize"-->
-<!--                  @updateNegativePrompt="updateNegativePrompt">-->
-<!--        <div class="icon-generate">-->
-<!--          <HButton  @click="drawImg">-->
-<!--            <div class="flex-row full">-->
-<!--              <i class='bx bxs-magic-wand' style="font-size: 30px"></i>-->
-<!--              <div style="font-size: 18px;font-weight: 700;line-height: 30px">-->
-<!--                Generate-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </HButton>-->
-<!--        </div>-->
-<!--      </PrompPanel>-->
+    <div class="prompt-div">
+      <ImagePropmpPanel @updateImg="updateImg"
+                  @updateStyle="updateStyle"
+                  @updateSize="updateSize"
+                  @updateNegativePrompt="updateNegativePrompt">
+        <div class="icon-generate">
+          <HButton  @click="drawImg">
+            <div class="flex-row full">
+              <i class='bx bxs-magic-wand' style="font-size: 30px"></i>
+              <div style="font-size: 18px;font-weight: 700;line-height: 30px">
+                Generate
+              </div>
+            </div>
+          </HButton>
+        </div>
+      </ImagePropmpPanel>
 
-<!--    </div>-->
+    </div>
 
-<!--    <div class="pic-div">-->
-<!--      <ImageGeneration :taskId="data.taskId" @onFinishDraw="onFinishDraw"></ImageGeneration>-->
-<!--    </div>-->
-    <div style="color: white">
-      home
+    <div class="pic-div">
+      <ImageGeneration :taskId="data.taskId" @onFinishDraw="onFinishDraw"></ImageGeneration>
     </div>
 
 

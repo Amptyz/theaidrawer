@@ -3,6 +3,35 @@ import store from "@/store";
 import axios from "@/assets/axios";
 import type {drawRequest} from "@/assets/api/type";
 
+
+
+export class TalkHistory {
+    content: string;
+    selfSend: boolean;
+    constructor(content : string, selfSend : boolean) {
+        this.content = content
+        this.selfSend = selfSend
+
+    }
+}
+export class Message {
+    id : number;
+    content: string;
+    type: 'error'|'info'|'success'|'warning';
+    duration: number;
+    constructor(id: number, content: string, type: 'error'|'info'|'success'|'warning', duration: number) {
+        this.id = id
+        this.content = content
+        this.type = type
+        this.duration = duration
+    }
+}
+
+let messageId = 0
+
+export const showMessage = (content: string, type: 'error'|'info'|'success'|'warning', duration = 2000) => {
+    store.state.messageList.push(new Message(messageId++, content, type, duration))
+}
 export const changeTheme = (theme : string) => {
     window.document.documentElement.setAttribute("data-theme", theme);
 }

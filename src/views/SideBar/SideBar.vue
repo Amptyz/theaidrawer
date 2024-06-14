@@ -36,7 +36,7 @@
             <div class="title-inverse foldable" style="flex-grow: 0; text-align: center">AiDraw</div>
           </div>
           <side-bar-item-group v-if="!store.state.isAdmin">
-            <side-bar-item name="study" @click="goto('/home')">
+            <side-bar-item name="home" @click="goto('/home')">
               <div class="flex-row" style="justify-content: center; transition: gap 0.5s" :style="{gap: store.state.sidebar_fold?'0':'20px'}">
                 <div class="box-icon">
                   <i class='bx bx-book'></i>
@@ -44,12 +44,20 @@
                 <div class="foldable">Home</div>
               </div>
             </side-bar-item>
-            <side-bar-item name="archive" @click="goto('/draw')">
+            <side-bar-item name="draw" @click="goto('/draw')">
               <div class="flex-row" style="justify-content: center; transition: gap 0.5s" :style="{gap: store.state.sidebar_fold?'0':'20px'}">
                 <div class="box-icon">
                   <i class='bx bx-archive'></i>
                 </div>
                 <div class="foldable">Draw</div>
+              </div>
+            </side-bar-item>
+            <side-bar-item name="talk" @click="goto('/talk')">
+              <div class="flex-row" style="justify-content: center; transition: gap 0.5s" :style="{gap: store.state.sidebar_fold?'0':'20px'}">
+                <div class="box-icon">
+                  <i class='bx bx-archive'></i>
+                </div>
+                <div class="foldable">talk</div>
               </div>
             </side-bar-item>
 

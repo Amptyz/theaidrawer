@@ -34,7 +34,7 @@ import HInput from "@/components/HInput.vue";
 import HButton from "@/components/HButton.vue"
 import {reactive} from "vue";
 import HDivider from "@/components/HDivider.vue";
-import {goto, signIn} from "@/assets/api";
+import {goto, showMessage, signIn} from "@/assets/api";
 const data = reactive<{
   email : string
   password : string
@@ -64,6 +64,7 @@ function goRegistry(){
 }
 function onSignIn(){
   signIn(data)
+  showMessage('登录成功！','success')
 }
 
 const onBlurEmail = () => {

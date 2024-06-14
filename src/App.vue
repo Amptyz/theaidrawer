@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import {onMounted} from "vue";
 import {changeTheme} from "@/assets/api";
 import SideBar from "@/views/SideBar/SideBar.vue";
+import HMessage from "@/components/HMessage.vue";
 
 onMounted(()=>{
   changeTheme("bright")
@@ -25,7 +26,7 @@ onMounted(()=>{
         </transition>
       </router-view>
     </div>
-
+  <HMessage></HMessage>
   </div>
 
 </template>

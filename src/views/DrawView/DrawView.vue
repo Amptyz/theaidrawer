@@ -4,7 +4,6 @@ import PrompPanel from "@/views/HomeView/components/PrompPanel.vue";
 import {reactive, ref} from "vue";
 import {draw} from "@/assets/api";
 import type {drawRequest, ImgOption} from "@/assets/api/type";
-import HLoading from "@/components/HLoading.vue";
 import ImageGeneration from "@/views/HomeView/components/ImageGeneration.vue";
 import HButton from "@/components/HButton.vue";
 const advancedOption = reactive<ImgOption>({
@@ -55,6 +54,9 @@ const updateNegativePrompt = (val) =>{
 const updateImg = (imgUrl:string)=>{
   console.log('成功update了Img！！')
   paras.img = imgUrl
+  if(imgUrl==''){
+    paras.imgOptions={}
+  }
 }
 const updateStyle = (styleCode:number)=>{
   paras.modelStyleId = styleCode
@@ -68,38 +70,74 @@ const updateSize = (x:number,y:number)=>{
   }
   console.log('成功update图片尺寸！！',paras.width,paras.height)
 }
+const updateHrScale = (val:number)=>{
+  paras.hrScale = val
+  console.log('成功update了scale',paras.hrScale)
+}
+const updateHrStep = (val:number)=>{
+  paras.hrStep = val
+  console.log('成功update了step',paras.hrScale)
+}
+const updateDetailLevel = (val:number)=>{
+  paras.detailsLevel = val
+  console.log('成功update了detailLevel',paras.hrScale)
+}
+const updateFaceFix = (val:boolean)=>{
+  paras.faceFix = val
+  console.log('成功update了Facefix',paras.faceFix)
+}
+const updateTilling = (val:boolean)=>{
+  paras.tiling = val
+  console.log('成功update了tiling',paras.tiling)
+}
+const updateSeed = (val:string)=>{
+  paras.seed = val
+  console.log('成功update了tiling',paras.seed)
+}
+const updateImgOption = (option)=>{
+  paras.imgOptions = option
+  console.log('成功update了imgOptions',paras.imgOptions)
+}
+const updateDenoisingStrength = (val)=>{
+  paras.denoisingStrength = val
+  console.log('成功update了重回幅度',paras.denoisingStrength)
+}
 </script>
 
 <template>
   <div class="full flex-row" style="background-color: var(--black-background)">
 
-<!--    <div class="prompt-div">-->
-<!--      <PrompPanel v-model="paras.prompt" :negative-prompt="paras.negativePrompt"-->
-<!--                  @updateImg="updateImg"-->
-<!--                  @updateStyle="updateStyle"-->
-<!--                  @updateSize="updateSize"-->
-<!--                  @updateNegativePrompt="updateNegativePrompt">-->
-<!--        <div class="icon-generate">-->
-<!--          <HButton  @click="drawImg">-->
-<!--            <div class="flex-row full">-->
-<!--              <i class='bx bxs-magic-wand' style="font-size: 30px"></i>-->
-<!--              <div style="font-size: 18px;font-weight: 700;line-height: 30px">-->
-<!--                Generate-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </HButton>-->
-<!--        </div>-->
-<!--      </PrompPanel>-->
+    <div class="prompt-div">
+      <PrompPanel v-model="paras.prompt" :negative-prompt="paras.negativePrompt"
+                  @updateImg="updateImg"
+                  @updateStyle="updateStyle"
+                  @updateSize="updateSize"
+                  @updateHrScale="updateHrScale"
+                  @updateHrStep="updateHrStep"
+                  @updateDetailLevel="updateDetailLevel"
+                  @updateFaceFix="updateFaceFix"
+                  @updateTilling="updateTilling"
+                  @updateSeed="updateSeed"
+                  @updateDenoisingStrength="updateDenoisingStrength"
+                  @updateImgOption="updateImgOption"
+                  @updateNegativePrompt="updateNegativePrompt">
+      </PrompPanel>
 
-<!--    </div>-->
-
-<!--    <div class="pic-div">-->
-<!--      <ImageGeneration :taskId="data.taskId" @onFinishDraw="onFinishDraw"></ImageGeneration>-->
-<!--    </div>-->
-    <div style="color: white">
-      home
     </div>
 
+    <div class="pic-div">
+      <ImageGeneration :taskId="data.taskId" @onFinishDraw="onFinishDraw"></ImageGeneration>
+    </div>
+    <div class="icon-generate">
+      <HButton  @click="drawImg">
+        <div class="flex-row full">
+          <i class='bx bxs-magic-wand' style="font-size: 30px"></i>
+          <div style="font-size: 18px;font-weight: 700;line-height: 30px">
+            Generate
+          </div>
+        </div>
+      </HButton>
+    </div>
 
   </div>
 </template>
@@ -124,8 +162,8 @@ const updateSize = (x:number,y:number)=>{
 .icon-generate
   width 150px
   position: absolute
-  right 0
-  bottom 0
+  right 20px
+  bottom 5px
   cursor pointer
   font-size 30px
   color var(--theme-color-bright)

@@ -1,0 +1,104 @@
+<template>
+  <div class="form-input-main">
+    <div class="form-input-border" :style="{height: props.height, width: props.width}">
+      <div class="form-input-placeholder hint" v-if="data.empty && !data.focus">{{ '<' + props.name + '>' }}</div>
+      <input class="form-input-field" v-model="data.content" @blur="onBlur" :type="props.password?'password':props.type" @focus="onFocus">
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import {defineProps, withDefaults, defineEmits, reactive, watch} from 'vue'
+const props = withDefaults(defineProps<{
+  name: string
+  password?: boolean
+  modelValue: string
+  type?: string
+  height?: string
+  width?: string
+}>() , {
+  password: false,
+  height: '40px',
+  type: 'text',
+});
+
+const emits = defineEmits(['update:modelValue', 'blur'])
+
+const data = reactive<{
+  content: string
+  focus: boolean
+  empty: boolean
+}>({
+  content: '',
+  focus: false,
+  empty: true
+})
+
+watch(
+    () => props.modelValue,
+    (val, preval) => {
+      data.content = val;
+      if (val !== '')
+        data.empty = false
+      else data.empty = true
+    },
+    {
+      immediate: true
+    }
+)
+
+watch(
+    () => data.content,
+    (val, preval) => {
+      if (val !== '')
+        data.empty = false
+      else data.empty = true
+      emits('update:modelValue', val);
+    },
+    {
+      immediate: true
+    }
+)
+
+const onBlur = () => {
+  data.focus = false
+  emits('blur')
+}
+
+const onFocus = () => {
+  data.focus = true
+}
+</script>
+
+<style scoped lang="stylus">
+.form-input-main
+  position relative
+  background-color transparent
+  transition all 0.2s
+  overflow hidden
+  border-radius 5px
+  z-index 0
+  &:hover, &:focus-within
+    background-color rgba(0,0,0,0.6)
+
+.form-input-field
+  color white
+  padding-left 10px
+  background-color transparent
+  height 100%
+  font-size 14px
+
+.form-input-placeholder
+  position absolute
+  top 50%
+  left 10px
+  transform translate(0,-50%)
+  z-index -1
+
+/* 隐藏 number 类型 input 的上下箭头按钮 */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>

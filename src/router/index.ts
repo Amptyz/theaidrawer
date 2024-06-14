@@ -4,6 +4,9 @@ import LoginView from "@/views/SignView/LoginView.vue";
 import SignView from "@/views/SignView/SignView.vue"
 import RegistryView from "@/views/SignView/RegistryView.vue";
 import MainView from "@/views/MainView.vue";
+import DrawView from "@/views/DrawView/DrawView.vue";
+import ImageDrawView from "@/views/ImageDrawView/ImageDrawView.vue";
+import TalkView from "@/views/TalkView/TalkView.vue"
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -40,6 +43,21 @@ const router = createRouter({
           name:'home',
           component:HomeView,
         },
+        {
+          path:'/draw',
+          name:'draw',
+          component: DrawView,
+        },
+        {
+          path:'/imageDraw',
+          name:'imageDraw',
+          component: ImageDrawView
+        },
+        {
+          path:'/talk',
+          name:'talk',
+          component: TalkView
+        }
       ]
     },
 
