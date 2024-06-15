@@ -14,6 +14,7 @@ export default createStore({
         session: '',
         talkHistories: new Array<TalkHistory>(),
         messageList: new Array<Message>(),
+        isRedraw: false
     },
     getters:{
 

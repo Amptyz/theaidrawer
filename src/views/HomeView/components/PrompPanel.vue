@@ -289,7 +289,6 @@ watch(
 .prompt-panel
   flex 1
   position relative
-
   background-color var(--grey-color-dark)
   border-radius 16px
   border 2px solid var(--grey-color)

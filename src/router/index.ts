@@ -7,6 +7,7 @@ import MainView from "@/views/MainView.vue";
 import DrawView from "@/views/DrawView/DrawView.vue";
 import ImageDrawView from "@/views/ImageDrawView/ImageDrawView.vue";
 import TalkView from "@/views/TalkView/TalkView.vue"
+import EraseView from "@/views/EraseView/EraseView.vue";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -57,6 +58,11 @@ const router = createRouter({
           path:'/talk',
           name:'talk',
           component: TalkView
+        },
+        {
+          path:'/erase',
+          name:'erase',
+          component: EraseView
         }
       ]
     },

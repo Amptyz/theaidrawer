@@ -52,6 +52,14 @@
                 <div class="foldable">Draw</div>
               </div>
             </side-bar-item>
+            <side-bar-item name="erase" @click="goto('/erase')">
+              <div class="flex-row" style="justify-content: center; transition: gap 0.5s" :style="{gap: store.state.sidebar_fold?'0':'20px'}">
+                <div class="box-icon">
+                  <i class='bx bx-archive'></i>
+                </div>
+                <div class="foldable">Erase</div>
+              </div>
+            </side-bar-item>
             <side-bar-item name="talk" @click="goto('/talk')">
               <div class="flex-row" style="justify-content: center; transition: gap 0.5s" :style="{gap: store.state.sidebar_fold?'0':'20px'}">
                 <div class="box-icon">
@@ -60,6 +68,7 @@
                 <div class="foldable">talk</div>
               </div>
             </side-bar-item>
+
 
 
           </side-bar-item-group>

@@ -99,3 +99,25 @@ export const uploadImage = async (data:FormData)=>{
 
     return res.data
 }
+export const repaint = async (data:any)=>{
+    console.log('重绘参数',data)
+    const res = await axios.post('/image/repaint',data)
+    console.log('重绘返回结果',res)
+    return res.data
+}
+export const getBase64 = (file:File) =>{
+    return new Promise(function (resolve, reject){
+        const reader = new FileReader()
+        let imgResult:string|ArrayBuffer|null
+        reader.readAsDataURL(file)
+        reader.onload=function (){
+            imgResult = reader.result
+        }
+        reader.onerror = function (error   ){
+            reject(error)
+        }
+        reader.onloadend = function (){
+            resolve(imgResult)
+        }
+    })
+}
