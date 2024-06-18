@@ -4,14 +4,15 @@ import HDivider from "@/components/HDivider.vue";
 import HButton from "@/components/HButton.vue";
 import HFileUpload from "@/components/HFileUpload.vue";
 import HImageUpload from "@/components/HImageUpload.vue";
-import StyleBox from "@/views/HomeView/components/StyleBox.vue";
-import SizeBox from "@/views/HomeView/components/SizeBox.vue";
+import StyleBox from "@/views/DrawView/components/StyleBox.vue";
+import SizeBox from "@/views/DrawView/components/SizeBox.vue";
 import ProgressBar from "@/components/ProgressBar.vue";
 import HScroller from "@/components/HScroller.vue";
 import HSwitch from "@/components/HSwitch.vue";
 import HFormInput from "@/components/HFormInput.vue";
 import type {ImgOption} from "@/assets/api/type";
 import ImageOptionPanel from "@/views/DrawView/components/ImageOptionPanel.vue";
+import HintIcon from "@/components/HintIcon.vue";
 const advancedOption = reactive<ImgOption>({
   removeBackground:null,
   redrawBackground:null,
@@ -185,6 +186,7 @@ watch(
       <div class="flex-row flex-center-vertical" >
         <div class="left-bar"></div>
         <div class="subtitle">绘画描述</div>
+        <HintIcon title="绘画描述" content="对这个绘画内容进行描述"></HintIcon>
       </div>
       <div class="flex-row text-region ">
         <textarea class="input-field" v-model="data.prompt" placeholder="此处描述画面的关键词哦"/>
@@ -302,13 +304,10 @@ watch(
   height 100%
   font-size 16px
   color var(--font-subject-color)
-
 .setting-panel
   margin-top 15px
   height 100%
   flex 2
-
-
 .style-box
   width 100%
   margin 10px

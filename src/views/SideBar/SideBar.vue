@@ -36,36 +36,36 @@
             <div class="title-inverse foldable" style="flex-grow: 0; text-align: center">AiDraw</div>
           </div>
           <side-bar-item-group v-if="!store.state.isAdmin">
-            <side-bar-item name="home" @click="goto('/home')">
+            <side-bar-item name="home" @click="goto('/home');store.state.curSelected='home'">
               <div class="flex-row" style="justify-content: center; transition: gap 0.5s" :style="{gap: store.state.sidebar_fold?'0':'20px'}">
                 <div class="box-icon">
-                  <i class='bx bx-book'></i>
+                  <i class='bx bx-home'></i>
                 </div>
                 <div class="foldable">Home</div>
               </div>
             </side-bar-item>
-            <side-bar-item name="draw" @click="goto('/draw')">
+            <side-bar-item name="draw" @click="goto('/draw');store.state.curSelected='draw'">
               <div class="flex-row" style="justify-content: center; transition: gap 0.5s" :style="{gap: store.state.sidebar_fold?'0':'20px'}">
                 <div class="box-icon">
-                  <i class='bx bx-archive'></i>
+                  <i class='bx bx-paint' ></i>
                 </div>
                 <div class="foldable">Draw</div>
               </div>
             </side-bar-item>
-            <side-bar-item name="erase" @click="goto('/erase')">
+            <side-bar-item name="erase" @click="goto('/erase');store.state.curSelected='erase'">
               <div class="flex-row" style="justify-content: center; transition: gap 0.5s" :style="{gap: store.state.sidebar_fold?'0':'20px'}">
                 <div class="box-icon">
-                  <i class='bx bx-archive'></i>
+                  <i class='bx bx-eraser' ></i>
                 </div>
                 <div class="foldable">Erase</div>
               </div>
             </side-bar-item>
-            <side-bar-item name="talk" @click="goto('/talk')">
+            <side-bar-item name="talk" @click="goto('/talk');store.state.curSelected='talk'">
               <div class="flex-row" style="justify-content: center; transition: gap 0.5s" :style="{gap: store.state.sidebar_fold?'0':'20px'}">
                 <div class="box-icon">
-                  <i class='bx bx-archive'></i>
+                  <i class='bx bx-chat' ></i>
                 </div>
-                <div class="foldable">talk</div>
+                <div class="foldable">Talk</div>
               </div>
             </side-bar-item>
 

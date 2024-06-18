@@ -2,7 +2,7 @@
 import {reactive, ref} from "vue";
 import {draw} from "@/assets/api";
 import type {drawRequest, ImgOption} from "@/assets/api/type";
-import ImageGeneration from "@/views/HomeView/components/ImageGeneration.vue";
+import ImageGeneration from "@/views/DrawView/components/ImageGeneration.vue";
 import HButton from "@/components/HButton.vue";
 import ImagePropmpPanel from "@/views/ImageDrawView/components/ImagePropmpPanel.vue";
 const advancedOption = reactive<ImgOption>({

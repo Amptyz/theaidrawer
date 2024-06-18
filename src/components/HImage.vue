@@ -64,6 +64,9 @@ onMounted(() => {
 
 <style scoped lang="stylus">
 .image-main
+  display inline-block
+  width auto
+  height auto
   position relative
   scale 1.2
 

@@ -4,8 +4,8 @@ import HDivider from "@/components/HDivider.vue";
 import HButton from "@/components/HButton.vue";
 import HFileUpload from "@/components/HFileUpload.vue";
 import HImageUpload from "@/components/HImageUpload.vue";
-import StyleBox from "@/views/HomeView/components/StyleBox.vue";
-import SizeBox from "@/views/HomeView/components/SizeBox.vue";
+import StyleBox from "@/views/DrawView/components/StyleBox.vue";
+import SizeBox from "@/views/DrawView/components/SizeBox.vue";
 import ProgressBar from "@/components/ProgressBar.vue";
 
 const data = reactive<{

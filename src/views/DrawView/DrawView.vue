@@ -1,10 +1,10 @@
 <script setup lang="ts">
 
-import PrompPanel from "@/views/HomeView/components/PrompPanel.vue";
+import PrompPanel from "@/views/DrawView/components/PrompPanel.vue";
 import {reactive, ref} from "vue";
 import {draw} from "@/assets/api";
 import type {drawRequest, ImgOption} from "@/assets/api/type";
-import ImageGeneration from "@/views/HomeView/components/ImageGeneration.vue";
+import ImageGeneration from "@/views/DrawView/components/ImageGeneration.vue";
 import HButton from "@/components/HButton.vue";
 const advancedOption = reactive<ImgOption>({
   removeBackground:null,

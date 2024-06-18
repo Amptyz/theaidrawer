@@ -1,136 +1,111 @@
 <script setup lang="ts">
 
-import PrompPanel from "@/views/HomeView/components/PrompPanel.vue";
-import {reactive, ref} from "vue";
-import {draw} from "@/assets/api";
-import type {drawRequest, ImgOption} from "@/assets/api/type";
-import HLoading from "@/components/HLoading.vue";
-import ImageGeneration from "@/views/HomeView/components/ImageGeneration.vue";
 import HButton from "@/components/HButton.vue";
-const advancedOption = reactive<ImgOption>({
-  removeBackground:null,
-  redrawBackground:null,
-  genderDetect:null,
-  facePreservation:null,
-  facePreservationCount:null,
-  img:null,
-})
-const paras = reactive<drawRequest>({
-  prompt:'',
-  negativePrompt:'',
-  modelStyleId:1,
-  width:960,
-  height:960,
-  img:null,
-  maskImg:null,
-  maskBlur:null,
-  denoisingStrength:null,
-  hrScale:null,
-  hrSteps:null,
-  seed:null,
-  tiling:null,
-  faceFix:null,
-  detailsLevel:null,
-  imgOptions:advancedOption
-})
-const data = reactive<{
-  taskId:string
-}>({
-  taskId:''
-})
-const drawImg = () =>{
-  console.log('drawImg',paras)
-  draw(paras).then(res=>{
-    data.taskId=res.data;
-    console.log('检查taskId',data.taskId)
-
-  })
-}
-const onFinishDraw = () => {
-  data.taskId = ''
-}
-const updateNegativePrompt = (val) =>{
-  paras.negativePrompt = val
-}
-const updateImg = (imgUrl:string)=>{
-  console.log('成功update了Img！！')
-  paras.img = imgUrl
-}
-const updateStyle = (styleCode:number)=>{
-  paras.modelStyleId = styleCode
-  console.log('成功update模型参数！！',paras.modelStyleId)
-}
-const updateSize = (x:number,y:number)=>{
-  paras.height = paras.width*y/x;
-  if(y===16){
-    paras.height = 960
-    paras.width = 720
-  }
-  console.log('成功update图片尺寸！！',paras.width,paras.height)
-}
+import {goDraw} from "@/assets/api";
 </script>
 
 <template>
-  <div class="full flex-row" style="background-color: var(--black-background)">
+  <div class="full flex-column" style="background-color: black">
+    <div class="home-panel">
+      <div class="bg-block">
+      </div>
+      <div class="advertise-block">
+        <div class="ad-title">
+          <span class="gradual-change">
+            AI
+          </span>
+          绘画
+        </div>
+        <div class="ad-subtitle">
+          把你的想象带到画板和屏幕之上叭
+        </div>
+        <div class="ad-text">
+          基于Stable Difusion的新一代ai技术，<br>
+          体验效果极佳的ai绘画叭
+        </div>
+        <div class="ad-button-block">
+          <div class="ad-button">
+            <HButton class="ad-button" @click="goDraw">
+              <i class='bx bxs-palette' ></i>
+              开始绘画
+            </HButton>
+          </div>
 
-<!--    <div class="prompt-div">-->
-<!--      <PrompPanel v-model="paras.prompt" :negative-prompt="paras.negativePrompt"-->
-<!--                  @updateImg="updateImg"-->
-<!--                  @updateStyle="updateStyle"-->
-<!--                  @updateSize="updateSize"-->
-<!--                  @updateNegativePrompt="updateNegativePrompt">-->
-<!--        <div class="icon-generate">-->
-<!--          <HButton  @click="drawImg">-->
-<!--            <div class="flex-row full">-->
-<!--              <i class='bx bxs-magic-wand' style="font-size: 30px"></i>-->
-<!--              <div style="font-size: 18px;font-weight: 700;line-height: 30px">-->
-<!--                Generate-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </HButton>-->
-<!--        </div>-->
-<!--      </PrompPanel>-->
-
-<!--    </div>-->
-
-<!--    <div class="pic-div">-->
-<!--      <ImageGeneration :taskId="data.taskId" @onFinishDraw="onFinishDraw"></ImageGeneration>-->
-<!--    </div>-->
-    <div style="color: white">
-      home
+        </div>
+      </div>
     </div>
+    <div class="divid-bar flex-row flex-center">
+      <div class="divid-bar-text">
+        <i class='bx bxs-palette' ></i>
+        其它工具
+        <i class='bx bx-chevron-down' ></i>
+      </div>
+    </div>
+    <div class="other-panel">
+
+    </div>
+
+
 
 
   </div>
 </template>
 
 <style scoped lang="stylus">
-
-.prompt-div
+.home-panel
   position relative
-  box-sizing border-box
-  margin 20px
-  width 35%
+  margin 80px 30px 0 5px
+  width 96%
+  height 500px
+  border-radius 12px
+  //background-color var(--grey-color)
+.bg-block
+  position absolute
+  width 100%
   height 100%
-  padding-bottom 40px
-.pic-div
-  flex 3
-  box-sizing border-box
-  padding 20px
+  background url("@/assets/Images/home-bg.png") no-repeat 80%
+  background-size 880px
 
-  height 100%
-  margin-bottom auto
+.advertise-block
+  position absolute
+  z-index 1
+  text-align left
+  width 50%
+  margin-top 50px
+  margin-left 10%
+  div
+    margin-top 18px
+  .ad-title
+    font-size 50px
+    color: var(--white-color);
+    font-weight: 600;
+  .gradual-change
+    -webkit-text-fill-color transparent
+    background linear-gradient(90deg,#C43188,#D6B6FF)
+    -webkit-background-clip text
+  .ad-subtitle
+    font-size 32px
+    color: var(--white-color);
+    font-weight: 600;
+  .ad-text
+    font-size 14px
+    color: var(--white-color);
+    font-weight: 600;
+  .ad-button-block
+    margin-top 30px
+    .ad-button
+      margin 0
+      width 220px
+      font-size 20px
+      font-weight 600
+.divid-bar
+  margin-top 20px
+  height 56px
+  background-color #151515
+  .divid-bar-text
+    font-size 20px
+    color #7C839C
+    font-weight 600;
 
-.icon-generate
-  width 150px
-  position: absolute
-  right 0
-  bottom 0
-  cursor pointer
-  font-size 30px
-  color var(--theme-color-bright)
-  margin-right 10px
-  margin-bottom 5px
-  &:hover
-    color var(--accent-color-dark)
+
 </style>

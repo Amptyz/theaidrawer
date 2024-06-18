@@ -16,7 +16,7 @@
           <i class='bx bx-error-circle' v-if="message.type === 'warning'" style="font-size: 16px"></i>
           <i class='bx bx-info-circle' v-if="message.type === 'info'" style="font-size: 16px"></i>
         </div>
-        <div class="text-inverse">
+        <div class="text-inverse" style="font-size: 16px">
           {{ message.content }}
         </div>
       </div>
@@ -54,6 +54,7 @@ const updateMessage = () => {
 <style scoped lang="stylus">
 .message-main
   position absolute
+  z-index 9999
   width 100%
   height 0
   bottom 20px
@@ -64,10 +65,11 @@ const updateMessage = () => {
   --animate-duration 0.3s
   min-width 150px
   padding 0 10px
-  height 40px
+  height 60px
   flex-shrink 0
   margin 10px auto
   justify-content center
+  align-items center
 
 .error
   background-color var(--error-color)

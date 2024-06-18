@@ -115,7 +115,7 @@ const handleDragOver = () =>{
 
 <style scoped lang="stylus">
 .upload-box
-  height 100px
+  height 100%
   margin 10px 15px
   position relative
   background-color rgb(27,27,28)

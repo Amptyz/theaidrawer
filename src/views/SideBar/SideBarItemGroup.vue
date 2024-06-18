@@ -9,8 +9,9 @@ import {
   onMounted,
   VNode,
   ComponentInternalInstance,
-  ref, onUpdated
+  ref, onUpdated, watch
 } from "vue";
+import store from "@/store";
 
 const keyVNode : Map<string, ComponentInternalInstance> = new Map<string, ComponentInternalInstance>()
 const selectedName  = ref<string>('')
@@ -20,7 +21,12 @@ const changeSelect = (name : string) => {
   selectedName.value = name
   keyVNode.get(selectedName.value)?.exposed?.setSelect(true)
 }
-
+watch(
+    ()=>store.state.curSelected,
+    (val,preval)=>{
+      changeSelect(val)
+    }
+)
 // eslint-disable-next-line no-undef
 defineExpose({
   changeSelect

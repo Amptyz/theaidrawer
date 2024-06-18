@@ -32,7 +32,7 @@ const props = withDefaults(defineProps<{
   font-size 14px
   transition background-color 0.1s
   cursor pointer
-  border-radius 20px
+  border-radius 8px
 
 .primary
   background-color var(--theme-color)

@@ -39,7 +39,10 @@ export const changeTheme = (theme : string) => {
 export const goto = async (path : string)=>{
     router.push(path)
 }
-
+export const goDraw = ()=>{
+    goto('/draw')
+    store.state.curSelected = 'draw'
+}
 export const signOut = () =>{
     axios.post('/user/logout').then(res=>{
         console.log(res.data)
@@ -75,16 +78,11 @@ export const signUp = (data:any) => {
 }
 export const draw = async (data:drawRequest)=>{
     console.log('上传成功',data)
-
-
-    const taskId = await axios.post('/image/draw',data,{
-        headers:{
-            session:store.state.session
-        }
-    })
+    const taskId = await axios.post('/image/draw',data)
     return taskId.data
 }
 export const checkGeneration = async (taskId:string):Promise<Object>=>{
+    console.log('检查参数taskId',taskId)
     const res = await axios.post('/image/check',{},{
         params:{
             taskId:taskId
@@ -101,9 +99,24 @@ export const uploadImage = async (data:FormData)=>{
 }
 export const repaint = async (data:any)=>{
     console.log('重绘参数',data)
-    const res = await axios.post('/image/repaint',data)
-    console.log('重绘返回结果',res)
-    return res.data
+    const taskId = await axios.post('/image/repaint',data)
+    console.log('重绘返回结果',taskId)
+    return taskId.data
+}
+export const imgErase = async (data:any)=>{
+    const taskId = await axios.post('/image/erase',data)
+    console.log('检查擦除任务taskId',taskId)
+    return taskId.data
+}
+export const checkErase = async (taskId:string):Promise<Object>=>{
+    console.log('检查参数taskId',taskId)
+    const res = await axios.post('/image/checkErase',{},{
+        params:{
+            taskId:taskId
+        }
+    })
+    console.log('检查擦除任务生成的res',res)
+    return res.data.data
 }
 export const getBase64 = (file:File) =>{
     return new Promise(function (resolve, reject){

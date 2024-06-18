@@ -4,7 +4,7 @@ import HLoading from "@/components/HLoading.vue";
 import {computed, reactive, ref, watch} from "vue";
 import HImage from "@/components/HImage.vue";
 import {Image as Img} from "@/assets/api/type";
-import {checkGeneration, repaint} from "@/assets/api";
+import {checkGeneration, repaint, showMessage} from "@/assets/api";
 import UploadBase64 from "@/components/UploadBase64.vue";
 import ProgressBar from "@/components/ProgressBar.vue";
 import HButton from "@/components/HButton.vue";
@@ -27,16 +27,23 @@ const data = reactive<{
   drawingInterval:0
 })
 const newImgData = reactive<{
-  image:Img|null
+
+  image:Img
   isDrawing:boolean
   isDrawComplete:boolean
+  loading:boolean
   imgUrl:string
+  drawingInterval:number
 }>({
-  image:null,
+
+  image:new Img('src/assets/avatar.jpg',400,400),
   isDrawing:false,
   isDrawComplete:false,
+  loading:false,
   imgUrl:'',
+  drawingInterval:1
 })
+const redrawTaskId = ref('')
 const redrawData = reactive<{
   prompt:string
   taskId:string
@@ -50,12 +57,14 @@ const redrawData = reactive<{
 })
 const props=defineProps<{
   taskId:string
-
 }>()
 const emits=defineEmits(['onFinishDraw'])
 const onLoaded = ()=>{
   console.log('加载完成！')
   data.loading = false;
+}
+const onNewImgLoaded= ()=>{
+  newImgData.loading = false
 }
 watch(
     ()=>props.taskId,
@@ -125,8 +134,28 @@ const openRedrawPanel = () => {
 }
 const redraw = () => {
   repaint(redrawData).then(res=>{
-    console.log('重绘返回结果',res)
+    redrawTaskId.value= res.data
+    newImgData.isDrawing=true
+    newImgData.drawingInterval=setInterval(async () => {
+
+      await checkGeneration(redrawTaskId.value).then(res => {
+        console.log('检查返回的res', res)
+        if(res.progress == 1)
+        {
+          newImgData.image = new Img(res.url, 1, 1)
+          newImgData.imgUrl = res.url
+          newImgData.isDrawing = false
+          newImgData.isDrawComplete = true
+          clearInterval(newImgData.drawingInterval)
+        }
+      })
+
+    },5000)
+
   })
+}
+const shareImg = ()=>{
+  showMessage('分享功能还在开发当中哦，请下次再点','warning')
 }
 </script>
 
@@ -147,9 +176,31 @@ const redraw = () => {
 
 <!--          <div v-else-if="data.isDrawComplete&&!data.isDrawing" class="image-show flex-column">-->
           <div v-else-if="data.isDrawComplete&&!data.isDrawing" class="completed-block flex-column flex-center-vertical">
-            <div class="image-show">
-              <HImage :image=data.image size="300" @load="onLoaded">
-              </HImage>
+            <div class="image-show flex-row">
+              <div style="display: inline-block;width: 50%" class="flex-column">
+                <div class="img-title" >
+                  生成图片
+                </div>
+                <HImage :image=data.image size="300" @load="onLoaded">
+                </HImage>
+              </div>
+              <div v-if="newImgData.isDrawing" style="display: inline-block;width: 50%">
+                <div class="img-title" >
+                  重绘中。。。
+                </div>
+                <HLoading :is-loading="newImgData.isDrawing">
+                  <div style="width: 370px;height: 370px">
+
+                  </div>
+                </HLoading>
+              </div>
+              <div v-if="newImgData.isDrawComplete" style="display: inline-block;width: 50%">
+                <div class="img-title" >
+                  重绘图片
+                </div>
+                <HImage  :image=newImgData.image size="300" @load="onNewImgLoaded"></HImage>
+              </div>
+
             </div>
             <div class="operation-panel flex-row" >
               <div class="flex-column operation-block" @click="downloadImg">
@@ -190,7 +241,10 @@ const redraw = () => {
                     <div class="left-bar"></div>
                     <div class="subtitle">蒙版图片</div>
                   </div>
-                  <UploadBase64 @updateBase64="updateMask"></UploadBase64>
+                  <div style="height: 100px">
+                    <UploadBase64 @updateBase64="updateMask"></UploadBase64>
+                  </div>
+
                 </div>
 
               </div>
@@ -255,8 +309,10 @@ const redraw = () => {
   width 100%
 
 .image-show
-  margin 60px auto
-  display inline
+  justify-content center
+  width 100%
+  margin 10px auto
+
 
 .redraw-panel
   position: relative
@@ -290,6 +346,7 @@ const redraw = () => {
   margin-right 10px
 
 .operation-panel
+  margin-top 25px
   width 47%
   justify-content space-between
   .operation-block
@@ -308,4 +365,10 @@ const redraw = () => {
   color var(--accent-text-color)
   font-size 24px
   font-weight 600
+
+.img-title
+  color var(--accent-text-color)
+  font-size 18px
+  font-weight 600
+  margin-bottom 40px
 </style>
