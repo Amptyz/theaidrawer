@@ -2,10 +2,13 @@
 
 import HButton from "@/components/HButton.vue";
 import {goDraw} from "@/assets/api";
+import Button from "@/components/Button.vue";
+import HScroller from "@/components/HScroller.vue";
 </script>
 
 <template>
   <div class="full flex-column" style="background-color: black">
+    <HScroller scroll-direction="column">
     <div class="home-panel">
       <div class="bg-block">
       </div>
@@ -41,13 +44,44 @@ import {goDraw} from "@/assets/api";
         <i class='bx bx-chevron-down' ></i>
       </div>
     </div>
-    <div class="other-panel">
+<!--    <div class="other-panel flex-row">-->
+<!--      <div class="item-block">-->
+<!--        <div style="position: absolute;top:34%;left:50%;transform: translate(-50%, -50%);" >-->
+<!--          <i class='bx bxs-eraser' style="font-size: 80px;color: #A95378"></i>-->
+<!--          <div style="color: #D6B6FF;font-size: 24px;font-weight: 600">-->
+<!--            图片擦除-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div style="width: 150px;position: absolute;bottom:0;left:50%;transform: translate(-50%, -50%);">-->
+<!--          <HButton>-->
+<!--            <div style="font-size: 18px;font-weight: 700;line-height: 30px">-->
+<!--              立即尝试-->
+<!--            </div>-->
+<!--            </HButton>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="item-block">-->
 
-    </div>
+<!--        <div style="position: absolute;top:34%;left:50%;transform: translate(-50%, -50%);" >-->
+<!--          <i class='bx bx-chat' style="font-size: 80px;color: #A95378" ></i>-->
+<!--          <div style="color: #D6B6FF;font-size: 24px;font-weight: 600">-->
+<!--            智能聊天-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div style="width: 150px;position: absolute;bottom:0;left:50%;transform: translate(-50%, -50%);">-->
+<!--          <HButton>-->
+<!--            <div style="font-size: 18px;font-weight: 700;line-height: 30px">-->
+<!--              立即尝试-->
+<!--            </div>-->
+<!--          </HButton>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--    </div>-->
 
 
 
-
+    </HScroller>
   </div>
 </template>
 
@@ -99,13 +133,24 @@ import {goDraw} from "@/assets/api";
       font-size 20px
       font-weight 600
 .divid-bar
-  margin-top 20px
+  margin-top 56px
   height 56px
   background-color #151515
   .divid-bar-text
     font-size 20px
     color #7C839C
     font-weight 600;
-
-
+.other-panel
+  border-radius 12px
+  width 92%
+  height 300px
+  margin 20px auto
+.item-block
+  position relative
+  flex 1
+  background-color var(--grey-color-dark)
+  border-radius 12px
+  width 40%
+  height 100%
+  margin 10px 30px
 </style>

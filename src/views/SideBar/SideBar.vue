@@ -88,7 +88,7 @@
               leave-active-class="animate__fadeOut"
               mode="out-in"
           >
-            <div v-if="!store.state.sidebar_fold" class="function-bar flex-row" style="color: var(--grey-color-bright)">
+            <div v-if="!store.state.sidebar_fold" class="function-bar flex-row">
               <div class="flex-row button-hover-inverse" style="gap: 5px" @click="onEdit">
                 <div class="box-icon" style="font-size: 15px">
                   <i class='bx bx-edit' ></i>
@@ -134,7 +134,7 @@ const switchFold = () => {
 }
 
 const onEdit = () =>{
-
+  goto('/profile')
   store.state.sidebar_fold = true
 }
 const onSignOut = () => {
@@ -163,7 +163,7 @@ const onSignOut = () => {
     opacity 0
     flex-grow 0
   .sidebar-bottom-block
-    background-color var(--theme-color)
+    background-color rgba(0, 0, 0, 0.3)
     height 150px
   .avatar-bar
     margin 0
@@ -226,8 +226,8 @@ const onSignOut = () => {
   padding 5px
   height 100px
 
-  //background-color rgba(0, 0, 0, 0.2)
-  background-color var(--grey-color-dark)
+  background-color rgba(0, 0, 0, 0.3)
+  //background-color var(--grey-color-dark)
   transition all 0.5s, height 1s
 
 .icon-app-name-flex
@@ -263,4 +263,6 @@ const onSignOut = () => {
   position relative
   font-size 22px
   color white
+.function-bar-column
+  align-items center
 </style>

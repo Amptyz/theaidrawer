@@ -59,9 +59,11 @@ export const signIn = (data:any) =>{
         if(res.data.code === 0){
             store.state.session = res.data.data.sessionId
             store.state.online=true
+            store.state.email = res.data.data.email
+            store.state.id = res.data.data.id
             goto('/main')
         }
-        console.log(res.data)
+        console.log('登录信息',res.data)
     })
 
 }
@@ -75,6 +77,41 @@ export const signUp = (data:any) => {
         console.log(res.data)
 
     })
+}
+export const checkLog = () => {
+    axios.get('/user/check').then(res=>{
+        console.log('检查登录信息',res)
+    })
+}
+export const getInfo = async () => {
+    const info = await axios.post('/user/info', {}, {
+        params: {
+            id: store.state.id
+        }
+    })
+    console.log('用户信息',info)
+    return info.data
+}
+export const getIndividual = async () => {
+    const info = await axios.get('/user/individual')
+    console.log('用户信息',info)
+    return info.data
+}
+export const updateInfo = (data : any) =>{
+    axios.post('/user/update',data).then(res=>{
+        console.log('更新用户信息',res.data)
+        if(res.data.code===0){
+            showMessage('更新个人信息成功！','success')
+        }
+    }).catch(e=>{
+        showMessage('网络错误，请重试','error')
+    })
+}
+export const uploadPortrait = async (formdata:FormData) => {
+    console.log('上传的头像',formdata)
+    const res = await axios.post('/user/uploadPortrait',formdata)
+    console.log('检查res',res)
+    return res.data
 }
 export const draw = async (data:drawRequest)=>{
     console.log('上传成功',data)
@@ -118,6 +155,11 @@ export const checkErase = async (taskId:string):Promise<Object>=>{
     console.log('检查擦除任务生成的res',res)
     return res.data.data
 }
+export const getLastImg = async () => {
+    const img = await axios.get('/image/get')
+    console.log('获取上一张图片',img)
+    return img.data
+}
 export const getBase64 = (file:File) =>{
     return new Promise(function (resolve, reject){
         const reader = new FileReader()
@@ -133,4 +175,8 @@ export const getBase64 = (file:File) =>{
             resolve(imgResult)
         }
     })
+}
+
+export const shareImg =()=>{
+    showMessage('分享功能还在开发中哦，请下次再来','warning')
 }

@@ -24,10 +24,10 @@ export default defineConfig({
         changeOrigin: true,
         rewrite:(path) => path.replace(/^\/api/,'')
       },
-      '/talk':{
-        target:'http://47.120.77.212:3000/js/iframe.js',
+      '/ait':{
+        target:'http://150.158.110.63:5000',
         changeOrigin:true,
-        rewrite:(path)=>path.replace(/^\/talk/,'')
+        rewrite:(path)=>path.replace(/^\/ait/,'')
       }
     }
   }

@@ -5,9 +5,9 @@ import SignView from "@/views/SignView/SignView.vue"
 import RegistryView from "@/views/SignView/RegistryView.vue";
 import MainView from "@/views/MainView.vue";
 import DrawView from "@/views/DrawView/DrawView.vue";
-import ImageDrawView from "@/views/ImageDrawView/ImageDrawView.vue";
 import TalkView from "@/views/TalkView/TalkView.vue"
 import EraseView from "@/views/EraseView/EraseView.vue";
+import ProfileView from "@/views/ProfileView/ProfileView.vue";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -50,11 +50,6 @@ const router = createRouter({
           component: DrawView,
         },
         {
-          path:'/imageDraw',
-          name:'imageDraw',
-          component: ImageDrawView
-        },
-        {
           path:'/talk',
           name:'talk',
           component: TalkView
@@ -63,6 +58,11 @@ const router = createRouter({
           path:'/erase',
           name:'erase',
           component: EraseView
+        },
+        {
+          path:'/profile',
+          name:'profile',
+          component: ProfileView
         }
       ]
     },

@@ -4,7 +4,7 @@ import HLoading from "@/components/HLoading.vue";
 import {computed, reactive, ref, watch} from "vue";
 import HImage from "@/components/HImage.vue";
 import {Image as Img} from "@/assets/api/type";
-import {checkGeneration, repaint, showMessage} from "@/assets/api";
+import {checkGeneration, repaint, shareImg, showMessage} from "@/assets/api";
 import UploadBase64 from "@/components/UploadBase64.vue";
 import ProgressBar from "@/components/ProgressBar.vue";
 import HButton from "@/components/HButton.vue";
@@ -154,9 +154,32 @@ const redraw = () => {
 
   })
 }
-const shareImg = ()=>{
-  showMessage('分享功能还在开发当中哦，请下次再点','warning')
+const startDraw = ()=>{
+  data.loading=true
+  data.isDrawing=true
+  showMessage('成功创建绘画任务','success')
 }
+const onError = () => {
+  data.loading = false
+  data.isDrawing = false
+  showMessage('网络错误，请重试！','error')
+}
+const endDraw = () =>{
+  clearInterval(data.drawingInterval)
+  data.loading = false
+  data.isDrawing = false
+  showMessage('中止绘画成功','info')
+}
+const getImage = (url:string) => {
+  data.image = new Img(url,1,1)
+  data.loading = false
+  data.isDrawing = false
+  data.isDrawComplete = true
+  data.imgUrl = url
+}
+defineExpose({
+  startDraw,onError,endDraw,getImage
+})
 </script>
 
 <template>
@@ -224,7 +247,7 @@ const shareImg = ()=>{
             </div>
 
             <div class="redraw-panel" :style="{height:store.state.isRedraw?'400px':'0'}">
-              <div class="flex-row">
+              <div class="flex-row" style="height: 50%">
 
                 <div style="width: 50%">
                   <div class="flex-row flex-center-vertical" >
@@ -279,12 +302,14 @@ const shareImg = ()=>{
           </div>
         </div>
       </HLoading>
+
     </div>
 
 </template>
 
 <style scoped lang="stylus">
 .pic-div
+  position: relative
   box-sizing border-box
   padding 20px
   width 100%

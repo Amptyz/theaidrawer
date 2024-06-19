@@ -196,6 +196,7 @@ watch(
       <div class="flex-row flex-center-vertical" >
         <div class="left-bar"></div>
         <div class="subtitle">图例上传</div>
+        <HintIcon title="图例上传" content="ai画手会将上传的图例作为参考，进行绘制"></HintIcon>
 <!--        <div v-if="true" class="text-bold" style="color: var(&#45;&#45;accent-text-color)" @click="state.isOptionPanel=!state.isOptionPanel">-->
 <!--          图片高级设置-->
 <!--        </div>-->
@@ -210,6 +211,7 @@ watch(
         <div style="font-size: 30px;color: white;position: relative;left: -5px;top:3px;transition: 0.3s" :style="{transform:state.isOptionPanel?'rotate(90deg)':'rotate(0deg)'}">
           <i class='bx bx-chevron-right'></i>
         </div>
+        <HintIcon title="图片高级设置" content="一些图片的高级设置"></HintIcon>
       </div>
       <div style="position: relative">
         <ImageOptionPanel :isShow="state.isOptionPanel&&state.hasImage" @updateImgOption="updateImgOption" @updateDenoisingStrength="updateDenoisingStrength"></ImageOptionPanel>
@@ -221,6 +223,7 @@ watch(
         <div class="flex-row flex-center-vertical" >
           <div class="left-bar"></div>
           <div class="subtitle">绘画风格</div>
+          <HintIcon title="绘画风格" content="决定生图的画风"></HintIcon>
         </div>
         <div class="style-box">
           <StyleBox @updateStyle="updateStyle"></StyleBox>
@@ -230,6 +233,7 @@ watch(
         <div class="flex-row flex-center-vertical" >
           <div class="left-bar"></div>
           <div class="subtitle">生图尺寸</div>
+          <HintIcon title="生图尺寸" content="决定生图的尺寸"></HintIcon>
         </div>
         <div class="style-box">
           <SizeBox @updateSize="updateSize"></SizeBox>
@@ -238,6 +242,7 @@ watch(
         <div class="flex-row flex-center-vertical" >
           <div class="left-bar"></div>
           <div class="subtitle">其它参数</div>
+          <HintIcon title="其他参数" content="一些其它参数，他们的含义如下："></HintIcon>
         </div>
         <div style="width: 80%;height: 40px;margin-left: 10px">
           <ProgressBar v-model="data.hrScale" :max=3 :min=1 name="高清倍率" :width=200></ProgressBar>
@@ -274,10 +279,7 @@ watch(
           </div>
           <HFormInput name="种子" v-model="data.seed" style="margin-left: 10px"></HFormInput>
         </div>
-
       </div>
-
-
     </HScroller>
 
 

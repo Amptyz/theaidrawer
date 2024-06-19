@@ -73,13 +73,15 @@ const updateMessage = () => {
 
 .error
   background-color var(--error-color)
+  opacity 0.9
 
 .success
   background-color var(--theme-color)
-
+  opacity 0.9
 .warning
   background-color var(--accent-color)
-
+  opacity 0.9
 .info
   background-color var(--grey-color)
+  opacity 0.9
 </style>

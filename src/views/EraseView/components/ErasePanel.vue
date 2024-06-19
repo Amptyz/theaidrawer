@@ -29,10 +29,10 @@ const data = reactive<{
   maskPrompt:'',
   maskNegativePrompt:'',
   rect:{
-    left:0,
-    top:0,
-    right:960,
-    bottom:960,
+    left:0.25,
+    top:0.25,
+    right:0.75,
+    bottom:0.75,
   },
   syncInvoke:true
 })

@@ -82,11 +82,11 @@ const onFocus = () => {
     background-color rgba(0,0,0,0.6)
 
 .form-input-field
-  color white
+  color var(--font-subject-color)
   padding-left 10px
   background-color transparent
   height 100%
-  font-size 14px
+  font-size 16px
 
 .form-input-placeholder
   position absolute

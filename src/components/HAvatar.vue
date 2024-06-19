@@ -17,6 +17,8 @@ const props = withDefaults(defineProps<{
 
 <style scoped lang="stylus">
 .avatar-box
+  position relative
+  z-index 1000
   border-radius 999px
   background-size cover
 </style>

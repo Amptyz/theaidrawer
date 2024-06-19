@@ -22,35 +22,35 @@ const sizes = ref<Array<size>>([
   {
     name:'1:2',
     img:new Img('src/assets/Images/1^2.png',1,1),
-    des:'头像',
+    des:'宣传图',
     x:1,
     y:2
   },
   {
     name:'16:9',
     img:new Img('src/assets/Images/16^9.png',1,1),
-    des:'头像',
+    des:'壁纸',
     x:16,
     y:9
   },
   {
     name:'9:16',
     img:new Img('src/assets/Images/9^16.png',1,1),
-    des:'头像',
+    des:'手机壁纸',
     x:9,
     y:16
   },
   {
     name:'4:3',
     img:new Img('src/assets/Images/4^3.png',1,1),
-    des:'头像',
+    des:'横幅',
     x:4,
     y:3
   },
   {
     name:'3:4',
     img:new Img('src/assets/Images/3^4.png',1,1),
-    des:'头像',
+    des:'竖幅',
     x:3,
     y:4
   },

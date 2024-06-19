@@ -2,7 +2,7 @@
 import ErasePanel from "@/views/EraseView/components/ErasePanel.vue";
 import {reactive, ref} from "vue";
 import HButton from "@/components/HButton.vue";
-import {imgErase} from "@/assets/api";
+import {imgErase, showMessage} from "@/assets/api";
 import ImageGeneration from "@/views/DrawView/components/ImageGeneration.vue";
 import EraseGeneration from "@/views/EraseView/components/EraseGeneration.vue";
 const data = reactive<{
@@ -11,11 +11,15 @@ const data = reactive<{
   taskId:''
 })
 const erasePanel = ref()
+const eraseGeneration = ref()
 const eraseImg = () =>{
   console.log('擦除任务',erasePanel.value.data)
+  eraseGeneration.value.startDraw()
   imgErase(erasePanel.value.data).then(res=>{
     data.taskId = res.data
     console.log('擦除任务taskId',data.taskId)
+  }).catch(e=>{
+    eraseGeneration.value.onError()
   })
 }
 const onFinishDraw = () => {
@@ -29,7 +33,7 @@ const onFinishDraw = () => {
       <ErasePanel ref="erasePanel"></ErasePanel>
     </div>
     <div class="pic-div">
-      <EraseGeneration :taskId="data.taskId" @onFinishDraw="onFinishDraw"></EraseGeneration>
+      <EraseGeneration ref="eraseGeneration" :taskId="data.taskId" @onFinishDraw="onFinishDraw"></EraseGeneration>
     </div>
     <div class="icon-generate">
       <HButton  @click="eraseImg">

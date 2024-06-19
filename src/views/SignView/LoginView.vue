@@ -19,7 +19,7 @@
           :information="information.password"
           style="margin: 16px 0"
       ></HInput>
-      <HButton @click="onSignIn" style="margin: 26px 0">登录</HButton>
+      <HButton @click="onSignIn" static="static-button" style="margin: 26px 0">登录</HButton>
       <HDivider>Or</HDivider>
       <div style="text-align: center">
         <span class="hint">还没有账号? </span>

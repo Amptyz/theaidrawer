@@ -2,7 +2,7 @@
 
 import PrompPanel from "@/views/DrawView/components/PrompPanel.vue";
 import {reactive, ref} from "vue";
-import {draw} from "@/assets/api";
+import {draw, getLastImg, showMessage} from "@/assets/api";
 import type {drawRequest, ImgOption} from "@/assets/api/type";
 import ImageGeneration from "@/views/DrawView/components/ImageGeneration.vue";
 import HButton from "@/components/HButton.vue";
@@ -33,20 +33,47 @@ const paras = reactive<drawRequest>({
   imgOptions:advancedOption
 })
 const data = reactive<{
+  isDrawing:boolean
   taskId:string
 }>({
+  isDrawing:false,
   taskId:''
 })
+const imageGeneration = ref()
 const drawImg = () =>{
+  if(paras.prompt==''){
+    showMessage('忘记填写绘画描述了哦！','warning')
+  }
   console.log('drawImg',paras)
+  imageGeneration.value.startDraw()
+  data.isDrawing = true
   draw(paras).then(res=>{
     data.taskId=res.data;
     console.log('检查taskId',data.taskId)
+  }).catch(e=>{
+    console.log('错误码',e)
+    imageGeneration.value.onError()
+  })
+}
+const endDraw = () => {
+  imageGeneration.value.endDraw()
+  data.isDrawing = false
+  showMessage('中止绘画成功！','success')
+}
+const getLast = () => {
+  getLastImg().then(res=>{
+    if(res.code==-1){
+      showMessage('图片已过期','error')
+    }else{
+      console.log('获取到的上一张图片的结果',res.data)
+      imageGeneration.value.getImage(res.data)
+    }
 
   })
 }
 const onFinishDraw = () => {
   data.taskId = ''
+  data.isDrawing = false
 }
 const updateNegativePrompt = (val) =>{
   paras.negativePrompt = val
@@ -105,7 +132,7 @@ const updateDenoisingStrength = (val)=>{
 </script>
 
 <template>
-  <div class="full flex-row" style="background-color: var(--black-background)">
+  <div class="full flex-row" style="background-color: var(--black-background);height: 100%">
 
     <div class="prompt-div">
       <PrompPanel v-model="paras.prompt" :negative-prompt="paras.negativePrompt"
@@ -126,14 +153,31 @@ const updateDenoisingStrength = (val)=>{
     </div>
 
     <div class="pic-div">
-      <ImageGeneration :taskId="data.taskId" @onFinishDraw="onFinishDraw"></ImageGeneration>
+      <ImageGeneration ref="imageGeneration" :taskId="data.taskId" @onFinishDraw="onFinishDraw"></ImageGeneration>
     </div>
-    <div class="icon-generate">
-      <HButton  @click="drawImg">
+    <div class="icon-generate flex-row" v-if="!data.isDrawing">
+      <HButton  @click="getLast" style="flex: 3">
+        <div class="flex-row full">
+          <div style="font-size: 18px;font-weight: 700;line-height: 30px">
+            获取最新绘画
+          </div>
+        </div>
+      </HButton>
+      <HButton  @click="drawImg" style="margin-left: 20px;flex:2" >
         <div class="flex-row full">
           <i class='bx bxs-magic-wand' style="font-size: 30px"></i>
           <div style="font-size: 18px;font-weight: 700;line-height: 30px">
-            Generate
+            绘画
+          </div>
+        </div>
+      </HButton>
+    </div>
+    <div class="icon-end" v-if="data.isDrawing">
+      <HButton static="static-button" @click="endDraw">
+        <div class="flex-row full">
+          <i class='bx bxs-magic-wand' style="font-size: 30px"></i>
+          <div style="font-size: 18px;font-weight: 700;line-height: 30px">
+            中止
           </div>
         </div>
       </HButton>
@@ -160,6 +204,19 @@ const updateDenoisingStrength = (val)=>{
   margin-bottom auto
 
 .icon-generate
+  width 410px
+  position: absolute
+  right 20px
+  bottom 5px
+  cursor pointer
+  font-size 30px
+  color var(--theme-color-bright)
+  margin-right 10px
+  margin-bottom 5px
+  &:hover
+    color var(--accent-color-dark)
+
+.icon-end
   width 150px
   position: absolute
   right 20px
